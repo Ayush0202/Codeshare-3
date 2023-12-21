@@ -1,14 +1,13 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
 interface Code {
-  id: number;
+  id: string;
   document: string;
-  userId: String;
-  // Add other properties as needed
+  userId: string;
+  key: number;
 }
 
 export default function Codes() {
@@ -17,18 +16,37 @@ export default function Codes() {
   const [data, setData] = useState<Code[]>([]);
 
   useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await axios.get("/api/codes");
-        setData(response.data);
-        console.log("hello", data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     getAllData();
   }, []);
+
+  const getAllData = async () => {
+    try {
+      const response = await fetch("/api/codes", {
+        method: "GET",
+      });
+      console.log("hello", response);
+      if (response.ok) {
+        const getData = await response.json();
+        setData(getData);
+        console.log("get - - ", getData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id: String) => {
+    try {
+      const response = await fetch("/api/codes", {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+      });
+      console.log(response);
+      getAllData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -36,9 +54,10 @@ export default function Codes() {
       <h1>hello from codes page</h1>
       the length is - {data.length}
       {data.map((dat) => (
-        <div key={dat.id}>
+        <div key={dat.key}>
           <h3>
-            {dat.document} and here is the {dat.userId}
+            {dat.id} and here is the {dat.userId} - - {dat.key}
+            <button onClick={() => handleDelete(dat.id)}>Delete</button>
           </h3>
         </div>
       ))}

@@ -26,3 +26,24 @@ export async function GET(req: NextRequest) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { id } = await req.json();
+
+    const { userId } = auth();
+    if (!userId) {
+      return new NextResponse("Unauthorized Request", { status: 401 });
+    }
+    const deleteUser = await prisma.codeDoc.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return NextResponse.json(deleteUser, { status: 201 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json("Internal Server Error", { status: 501 });
+  }
+}

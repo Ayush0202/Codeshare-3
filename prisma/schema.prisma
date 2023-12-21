@@ -16,4 +16,5 @@ model codeDoc {
   document String
   createdAt DateTime @default(now()) 
   userId String
+  key Int @default(autoincrement())
 }
