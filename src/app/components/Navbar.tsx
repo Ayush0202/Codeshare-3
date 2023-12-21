@@ -44,7 +44,7 @@ export default function Navbar() {
           )}
 
           {/* navbar on dashboard page when user is signed in */}
-          {pathname === "/codes" && (
+          {pathname === "/codes" && isSignedIn && (
             <>
               <div className="mr-1">
                 <Link className="text-white" href="/new">
@@ -52,6 +52,13 @@ export default function Navbar() {
                 </Link>
               </div>
             </>
+          )}
+
+          {/* navbar on new page */}
+          {pathname === "/new" && isSignedIn && (
+            <button type="submit">
+              <span className="text-white">Save</span>
+            </button>
           )}
         </div>
       </div>

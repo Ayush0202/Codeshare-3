@@ -11,8 +11,8 @@ datasource db {
 }
 
 
-model CodeDoc {
-  id Int @id @default(autoincrement())
+model codeDoc {
+  id String @id @default(uuid())
   document String
   createdAt DateTime @default(now()) 
   userId String
