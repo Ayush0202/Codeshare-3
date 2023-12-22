@@ -43,7 +43,7 @@ export default function New() {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${URL}/api/new`, {
+      const response = await fetch(`/api/new`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

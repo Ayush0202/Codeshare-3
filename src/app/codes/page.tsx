@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
@@ -55,7 +56,8 @@ export default function Codes() {
       the length is - {data.length}
       {data.map((dat) => (
         <div key={dat.key}>
-          <h3>
+          <h3 className="mb-10">
+            <Link href={`/doc/${dat.userId}/${dat.id}`}>{dat.id}</Link> <br />
             {dat.id} and here is the {dat.userId} - - {dat.key}
             <button onClick={() => handleDelete(dat.id)}>Delete</button>
           </h3>
