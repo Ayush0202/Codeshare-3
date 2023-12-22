@@ -16,11 +16,13 @@ import { sql } from "@codemirror/lang-sql";
 import { xml } from "@codemirror/lang-xml";
 import CodeMirror from "@uiw/react-codemirror";
 import Custom404 from "./404";
+import Loading from "./loading";
 
 export default function SavedDoc() {
   const { user } = useUser();
 
   const [dataFound, setDataFound] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [screenHeight, setScreenHeight] = useState(0);
   useEffect(() => {
@@ -53,6 +55,8 @@ export default function SavedDoc() {
         setDataFound(true);
       }
 
+      setLoading(false);
+
       const data = await response.json();
       setCode(data.document);
     }
@@ -64,7 +68,9 @@ export default function SavedDoc() {
     <>
       <Navbar />
 
-      {dataFound ? (
+      {loading && <Loading />}
+
+      {!loading && dataFound ? (
         <form>
           {/* editor component */}
           <CodeMirror
@@ -86,8 +92,10 @@ export default function SavedDoc() {
             ]}
           />
         </form>
-      ) : (
+      ) : !loading && !dataFound ? (
         <Custom404 />
+      ) : (
+        <h1></h1>
       )}
     </>
   );

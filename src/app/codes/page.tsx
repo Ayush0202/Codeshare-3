@@ -3,6 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import Loading from "./loading";
 
 interface Code {
   id: string;
@@ -14,6 +15,7 @@ interface Code {
 
 export default function Codes() {
   const { user } = useUser();
+  const [loading, setLoading] = useState(true);
 
   const [data, setData] = useState<Code[]>([]);
 
@@ -31,6 +33,7 @@ export default function Codes() {
         const getData = await response.json();
         setData(getData);
         console.log("get - - ", getData);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -56,8 +59,6 @@ export default function Codes() {
     <>
       <Navbar />
 
-      {user?.username}
-
       <h1 className="flex justify-center text-4xl font-bold mt-16">
         Your Codeshares
       </h1>
@@ -69,13 +70,13 @@ export default function Codes() {
         You have currently {data.length} Codeshares
       </h1>
 
-      {data.length === 0 && (
+      {loading ? (
+        <Loading />
+      ) : !loading && data.length === 0 ? (
         <h1 className="flex justify-center text-lg">
           Click on New to create your codeshare
         </h1>
-      )}
-
-      {data.length !== 0 && (
+      ) : (
         <div className="relative flex justify-center overflow-x-auto">
           <table className="w-3/4 text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
