@@ -19,7 +19,7 @@ export default function Navbar() {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <Image src="logo.svg" width={30} height={30} alt="Homepage GIF" />
+            <Image src="logo.svg" width={30} height={30} alt="Navbar GIF" />
 
             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
               Codeshare
@@ -46,10 +46,10 @@ export default function Navbar() {
           {/* navbar on dashboard page when user is signed in */}
           {pathname === "/codes" && isSignedIn && (
             <>
-              <div className="mr-1">
-                <Link className="text-white" href="/new">
-                  New
-                </Link>
+              <div className="mr-1 flex">
+                <div>
+                  <UserButton />
+                </div>
               </div>
             </>
           )}
