@@ -12,13 +12,11 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized Request", { status: 401 });
     }
 
-    // const userData = await prisma.codeDoc.findMany({
-    //   where: {
-    //     userId: userId,
-    //   },
-    // });
-
-    const userData = await prisma.codeDoc.findMany();
+    const userData = await prisma.codeDoc.findMany({
+      where: {
+        userId: userId,
+      },
+    });
 
     return NextResponse.json(userData, { status: 201 });
   } catch (error) {
