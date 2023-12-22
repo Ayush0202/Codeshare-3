@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
@@ -13,7 +13,7 @@ interface Code {
 }
 
 export default function Codes() {
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
+  const { user } = useUser();
 
   const [data, setData] = useState<Code[]>([]);
 
@@ -37,6 +37,8 @@ export default function Codes() {
     }
   };
 
+  console.log("user -0--", user?.username);
+
   const handleDelete = async (id: String) => {
     try {
       const response = await fetch("/api/codes", {
@@ -53,6 +55,8 @@ export default function Codes() {
   return (
     <>
       <Navbar />
+
+      {user?.username}
 
       <h1 className="flex justify-center text-4xl font-bold mt-16">
         Your Codeshares
@@ -100,7 +104,7 @@ export default function Codes() {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    <Link href={`/doc/${data.userId}/${data.id}`}>
+                    <Link href={`/doc/${user?.username}/${data.id}`}>
                       {data.id}
                     </Link>
                   </th>

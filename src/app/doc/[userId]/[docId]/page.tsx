@@ -1,4 +1,5 @@
 "use client";
+import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -14,8 +15,13 @@ import { rust } from "@codemirror/lang-rust";
 import { sql } from "@codemirror/lang-sql";
 import { xml } from "@codemirror/lang-xml";
 import CodeMirror from "@uiw/react-codemirror";
+import Custom404 from "./404";
 
 export default function SavedDoc() {
+  const { user } = useUser();
+
+  const [dataFound, setDataFound] = useState(false);
+
   const [screenHeight, setScreenHeight] = useState(0);
   useEffect(() => {
     const handleResize = () => {
@@ -37,11 +43,17 @@ export default function SavedDoc() {
 
   useEffect(() => {
     async function getSavedData() {
-      const response = await fetch(`/api/doc/${userId}/${docId}`, {
+      const response = await fetch(`/api/doc/${user?.username}/${docId}`, {
         method: "GET",
       });
+
+      if (response.status === 404) {
+        setDataFound(false);
+      } else {
+        setDataFound(true);
+      }
+
       const data = await response.json();
-      console.log(data.document);
       setCode(data.document);
     }
 
@@ -51,27 +63,32 @@ export default function SavedDoc() {
   return (
     <>
       <Navbar />
-      <form>
-        {/* editor component */}
-        <CodeMirror
-          value={code} // dynamically saving value that is fetched from database
-          height={`${screenHeight}px`}
-          theme="dark"
-          extensions={[
-            // supporint different languages
-            javascript({ jsx: true }),
-            cpp(),
-            css(),
-            html(),
-            java(),
-            php(),
-            python(),
-            rust(),
-            sql(),
-            xml(),
-          ]}
-        />
-      </form>
+
+      {dataFound ? (
+        <form>
+          {/* editor component */}
+          <CodeMirror
+            value={code} // dynamically saving value that is fetched from database
+            height={`${screenHeight}px`}
+            theme="dark"
+            extensions={[
+              // supporint different languages
+              javascript({ jsx: true }),
+              cpp(),
+              css(),
+              html(),
+              java(),
+              php(),
+              python(),
+              rust(),
+              sql(),
+              xml(),
+            ]}
+          />
+        </form>
+      ) : (
+        <Custom404 />
+      )}
     </>
   );
 }

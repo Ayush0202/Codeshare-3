@@ -1,7 +1,5 @@
 "use client";
 
-const URL = "http://localhost:3000";
-
 import { cpp } from "@codemirror/lang-cpp";
 import { css } from "@codemirror/lang-css";
 import { html } from "@codemirror/lang-html";

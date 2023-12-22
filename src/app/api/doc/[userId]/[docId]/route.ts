@@ -5,16 +5,18 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   const url = req.url;
 
-  const userId = url.split("/")[5];
   const docId = url.split("/")[6];
 
   try {
     const getData = await prisma.codeDoc.findFirst({
       where: {
-        userId: userId,
         id: docId,
       },
     });
+
+    if (!getData) {
+      return NextResponse.json("Data does not exist", { status: 404 });
+    }
 
     return NextResponse.json(getData, { status: 201 });
   } catch (error) {
