@@ -6,7 +6,7 @@ export default function HomeMain() {
   const router = useRouter();
 
   const handleGitHubClick = () => {
-    router.push("https://github.com/Ayush0202/Codeshare-3.0");
+    router.push("https://github.com/Ayush0202/Codeshare-3");
   };
 
   const handleShareClick = () => {
