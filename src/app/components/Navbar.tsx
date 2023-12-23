@@ -39,7 +39,10 @@ export default function Navbar() {
           {/* navbar on home page when user is signed in */}
           {pathname === "/" && isSignedIn && (
             <>
-              <UserButton />
+              <UserButton
+                afterSignOutUrl="/"
+                afterMultiSessionSingleSignOutUrl="/"
+              />
             </>
           )}
 
@@ -48,7 +51,10 @@ export default function Navbar() {
             <>
               <div className="mr-1 flex">
                 <div>
-                  <UserButton />
+                  <UserButton
+                    afterSignOutUrl="/"
+                    afterMultiSessionSingleSignOutUrl="/"
+                  />
                 </div>
               </div>
             </>
