@@ -19,7 +19,7 @@ export default function Navbar() {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <Image src="logo.svg" width={30} height={30} alt="Navbar GIF" />
+            <Image src="/logopng.png" width={30} height={30} alt="Navbar GIF" />
 
             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
               Codeshare
