@@ -16,6 +16,9 @@ export async function GET(req: NextRequest) {
       where: {
         userId: userId,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return NextResponse.json(userData, { status: 201 });
