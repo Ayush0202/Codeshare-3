@@ -58,7 +58,7 @@ Start the next.js application
 npm run dev
 ```
 
-The server will be running at `http://localhost:3000`
+The application will be running at `http://localhost:3000`
 
 ### Technologies Used
 
