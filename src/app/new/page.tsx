@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { cpp } from "@codemirror/lang-cpp";
 import { css } from "@codemirror/lang-css";
 import { html } from "@codemirror/lang-html";
@@ -18,6 +19,7 @@ import Navbar from "../components/Navbar";
 export default function New() {
   const [screenHeight, setScreenHeight] = useState(0);
   const [code, setCode] = useState("");
+  const { user } = useUser();
 
   const router = useRouter();
 
@@ -50,7 +52,7 @@ export default function New() {
       });
       if (response.ok) {
         const newdoc = await response.json();
-        router.push("/codes");
+        router.push(`/doc/${user?.username}/${newdoc.id}`);
       }
     } catch (error) {
       console.log(error);
