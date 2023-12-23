@@ -37,7 +37,6 @@ export default function New() {
 
   const onChangeValue = (e: SetStateAction<string>) => {
     setCode(e);
-    console.log(code);
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {

@@ -28,11 +28,9 @@ export default function Codes() {
       const response = await fetch("/api/codes", {
         method: "GET",
       });
-      console.log("hello", response);
       if (response.ok) {
         const getData = await response.json();
         setData(getData);
-        console.log("get - - ", getData);
         setLoading(false);
       }
     } catch (error) {
@@ -40,15 +38,12 @@ export default function Codes() {
     }
   };
 
-  console.log("user -0--", user?.username);
-
   const handleDelete = async (id: String) => {
     try {
       const response = await fetch("/api/codes", {
         method: "DELETE",
         body: JSON.stringify({ id }),
       });
-      console.log(response);
       getAllData();
     } catch (error) {
       console.log(error);

@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json("Unauthorized Request", { status: 401 });
   }
 
-  console.log(code);
-
   try {
     const newdocument = await prisma.codeDoc.create({
       data: {
