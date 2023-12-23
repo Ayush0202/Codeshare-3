@@ -1,6 +1,6 @@
 # CodeShare 3.0
 
-Codeshare is a code sharing platform built using MERN `(Next.js, Prisma, Clerk Auth, TypeScript)` stack. It enables easy sharing of codes with multiple users. Users can create a new codeshare, save it to generate a unique link which can be shared with multiple users.
+Codeshare is a code sharing platform built using `(Next.js, Prisma, Clerk Auth, TypeScript)` stack. It enables easy sharing of codes with multiple users. Users can create a new codeshare, save it to generate a unique link which can be shared with multiple users.
 
 Live project can be viewed [here](https://codeshare-3.vercel.app/)
 
